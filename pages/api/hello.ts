@@ -1,12 +1,23 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getCharacter } from "../../src/utils/characters";
 
 type Data = {
-  name: string;
+  id: number;
+  // name: string;
 };
 
+const rick = getCharacter(1);
+
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  const { query } = req.body as { query: string };
-  res.status(200).json({ name: "Working?" });
-  res.send({name: "Hello world!"});
+  const { query } = req.body as { query: number };
+  try {
+    const rick = getCharacter(query);
+    res.status(200).json({
+      post: req.query.id,
+      rick,
+    });
+  } catch (e) {
+    res.status(400);
+  }
 }
