@@ -12,11 +12,11 @@ const rick = getCharacter(1);
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   const { query } = req.body as { query: number };
   try {
-    const rick = getCharacter(query);
-    res.status(200).json({
-      post: req.query.id,
-      rick,
-    });
+    // const rick = getCharacter(query);
+    // res.status(200).json({
+    //   post: req.query.id,
+    //   rick,
+    // });
   } catch (e) {
     res.status(400);
   }
