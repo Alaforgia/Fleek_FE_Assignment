@@ -1,17 +1,32 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { CardHeader } from "@mui/material";
+import { CardHeader, createTheme } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { getCharacter } from "../../utils/characters";
-import { blueGrey } from "@mui/material/colors";
+import { black } from "@mui/material/colors";
 import { flexbox } from "@mui/system";
 import { relative } from "path";
 
 const rick = getCharacter(1);
+
+const theme = createTheme({
+  typography: {
+    // fontWeight: "bold",
+    fontSize: 18,
+    // pb: 1.5,
+    // ml: 1.5,
+  },
+  spacing: 2,
+  palette: {
+    primary: {
+      main: black[500],
+    },
+  },
+});
 
 const card = (
   <React.Fragment>
