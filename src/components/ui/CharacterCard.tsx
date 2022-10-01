@@ -4,7 +4,6 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import { CardHeader } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-// import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Typography, { typographyClasses } from "@mui/material/Typography";
 import { getCharacter } from "../../utils/characters";
@@ -12,33 +11,27 @@ import { styled, ThemeProvider, experimental_sx as sx } from "@mui/system";
 
 const rick = getCharacter(1);
 
-const customTheme = createTheme({
-  typography: {
-    fontWeightBold: 1000,
+const TextThemeComponent = styled("p")(
+  sx({
+    color: "#000000",
+    pt: 0,
+    ml: 1.5,
+    fontWeight: "bold",
     fontSize: 18,
     fontFamily: "Roboto",
-    // pb: 1.5,
-    // ml: 1.5,
-  },
-  spacing: 2.0,
-  palette: {
-    primary: {
-      main: "#000000",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#ffffff",
-    },
-  },
-});
-
-const MyThemeComponent = styled("p")(
+    position: "relative",
+    top: "-2.8%"
+  })
+);
+const ButtonComponent = styled("button")(
   sx({
-    color: "primary.main",
-    pt: 0.8,
-    ml: 1.5,
-    // font: "typography.fontSize",
-    fontWeight: "bold",
+    position: "relative",
+    bgcolor: "red",
+    border: "2px solid red",
+    borderRadius: 2,
+    p: 1.0,
+    m: 1.0,
+    alignContent: "center",
   })
 );
 
@@ -54,7 +47,7 @@ const card = (
         bgcolor: "limegreen",
         height: 65,
       }}
-      // component={Typography}
+      // component={CardHeaderTheme}
       title={
         <Typography
           sx={{
@@ -63,22 +56,20 @@ const card = (
             p: 0,
             mb: 0,
           }}
-
-          // gutterBottom
         >
           Character Logo
         </Typography>
       }
     />
-    <MyThemeComponent>
+    <TextThemeComponent>
       <CardContent
         sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "center", pb: 0 }}
       >
-        <Typography component="p" sx={{ pb: 3.5 }}>
+        <Typography component="p" sx={{ pb: 3.3 }}>
           Name
           <br />
         </Typography>
-        <Typography component="p" sx={{ pb: 3.5 }}>
+        <Typography component="p" sx={{ pb: 3.3 }}>
           Specie
           <br />
         </Typography>
@@ -86,7 +77,7 @@ const card = (
           Status
         </Typography>
       </CardContent>
-    </MyThemeComponent>
+    </TextThemeComponent>
     <CardActions
       sx={{
         display: "flex",
@@ -94,24 +85,14 @@ const card = (
         position: "relative",
         alignItems: "center",
         justifyContent: "center",
-        bottom: "-3.0%",
-        p: 1,
+        bottom: "7.6%",
+        p: 0,
         bgcolor: "gray",
       }}
     >
-      <Button
-        sx={{
-          position: "relative",
-          bgcolor: "red",
-          border: "2px solid red",
-          borderRadius: 2,
-          p: 1.9,
-          m: 5.4,
-          alignContent: "center",
-        }}
-      >
-        Details
-      </Button>
+      <ButtonComponent>
+        <Button>Details</Button>
+      </ButtonComponent>
     </CardActions>
   </React.Fragment>
 );
@@ -119,24 +100,22 @@ const card = (
 export default function CharacterCards() {
   return (
     <>
-      <ThemeProvider theme={customTheme}>
-        <Card
-          variant="outlined"
-          sx={{
-            // display: "flex",
-            // alignItems: "center",
-            // justifyContent: "center",
-            // flexDirection: "column",
-            width: 420,
-            height: 320,
-            // textAlign: "center",
-            border: 0,
-            borderRadius: 5.5,
-          }}
-        >
-          {card}
-        </Card>
-      </ThemeProvider>
+      <Card
+        variant="outlined"
+        sx={{
+          // display: "flex",
+          // alignItems: "center",
+          // justifyContent: "center",
+          // flexDirection: "column",
+          width: 420,
+          height: 320,
+          // textAlign: "center",
+          border: 0,
+          borderRadius: 5.5,
+        }}
+      >
+        {card}
+      </Card>
 
       {/* <div>{rick}</div> */}
     </>
