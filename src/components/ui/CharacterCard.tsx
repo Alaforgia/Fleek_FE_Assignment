@@ -2,28 +2,32 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { CardHeader, createTheme } from "@mui/material";
+import { CardHeader } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { getCharacter } from "../../utils/characters";
-import { black } from "@mui/material/colors";
-import { flexbox } from "@mui/system";
-import { relative } from "path";
+import black from "@mui/material/colors";
 
 const rick = getCharacter(1);
 
 const theme = createTheme({
   typography: {
-    // fontWeight: "bold",
+    fontWeightBold: 1000,
     fontSize: 18,
+    fontFamily: "Roboto",
     // pb: 1.5,
     // ml: 1.5,
   },
   spacing: 2,
   palette: {
-    primary: {
-      main: black[500],
+    // primary: {
+    //   main: "#fafafa",
+    // },
+    text: {
+      primary: "#000000",
+      secondary: "#000000",
     },
   },
 });
