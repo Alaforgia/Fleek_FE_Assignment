@@ -20,8 +20,8 @@ const status = [
     label: "Dead",
   },
   {
-    value: "Unknown",
-    label: "Unknown",
+    value: "unknown",
+    label: "unknown",
   },
 ];
 
@@ -35,8 +35,12 @@ const gender = [
     label: "Female",
   },
   {
-    value: "Unknown",
-    label: "Unknown",
+    value: "Genderless",
+    label: "Genderless",
+  },
+  {
+    value: "unknown",
+    label: "unknown",
   },
 ];
 
