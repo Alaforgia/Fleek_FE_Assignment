@@ -6,7 +6,7 @@ const page = <></>;
 export default function MyPagination() {
   return (
     <>
-      <Stack spacing={2}>
+      <Stack spacing={3}>
         <Pagination
           count={10}
           variant="outlined"
