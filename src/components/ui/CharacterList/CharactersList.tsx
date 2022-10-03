@@ -11,7 +11,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 
 // Types
-import { RickAndMortyCharacter } from "../../types";
+import { RickAndMortyCharacter } from "../../../types";
 
 const CharactersList: React.FC<{ characters: RickAndMortyCharacter[] }> = ({
   characters,
