@@ -6,10 +6,10 @@ import * as React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CharacterCard from "../src/components/ui/CharacterCard";
-import MyPagination from "../src/components/ui/MyPagination";
-import SideBar from "../src/components/ui/Sidebar";
-import NavBar from "../src/components/ui/NavBar";
+import CharacterCard from "../src/components/ui/CharacterListPage/CharacterCard";
+import MyPagination from "../src/components/ui/CharacterListPage/MyPagination";
+import SideBar from "../src/components/ui/CharacterListPage/Sidebar";
+import NavBar from "../src/components/ui/CharacterListPage/NavBar";
 
 const Home: NextPage = () => {
   return (
