@@ -73,6 +73,7 @@ const Episodes: React.FC = () => {
                 value={episodeId}
                 sx={{
                   backgroundColor: "primary.main",
+                  
                 }}
               />
             );
