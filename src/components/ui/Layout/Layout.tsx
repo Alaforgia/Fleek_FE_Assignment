@@ -1,21 +1,25 @@
-import * as React from "react";
-import { useState } from "react";
-import Button from "@mui/material/Button";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
-import Stack from "@mui/material/Stack";
-import NavBar from "../CharacterListPage/NavBar";
-import Sidebar from "../CharacterListPage/Sidebar";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Footer from "./Footer";
+import Navbar from "./Navbar";
+import SideBar from "./SideBar";
 
-type Anchor = "left";
+type LayoutProps = {
+  children: React.ReactNode;
+  isDetailPage: boolean;
+};
 
-export default function Layout(props: any, anchor: Anchor) {
-  const [isMenuOpen, setIsMenuOpen] = useState({ left: false });
-  return(
-    <>
-    <NavBar>
-      <Sidebar />
-    </NavBar>
-    </>
-  )
-}
+const Layout = ({ children, isDetailPage = false }: LayoutProps) => {
+  return (
+    <Container maxWidth="lg">
+      <Navbar isDetailPage={isDetailPage} />
+      <SideBar />
+      <Box component="main" sx={{ marginTop: "64px" }}>
+        {children}
+      </Box>
+      <Footer />
+    </Container>
+  );
+};
+
+export default Layout;
