@@ -11,31 +11,37 @@ export interface RickAndMortyCharacter {
     url: string;
   };
   created: string;
-  episode: [{ url: string }];
+  episode: string[];
 }
 
-export interface Episode {
+export type Episode = {
   id: number;
   name: string;
   air_date: string;
   episode: string;
-  characters: string[];
-  url: string;
   created: string;
+};
+
+export interface Info {
+  count: number;
+  pages: number;
+  next: string;
+  prev: string;
 }
 
 export type RickAndMortyState = {
-  // What is []?
   rickAndMortyCharacters: RickAndMortyCharacter[];
   name: string;
   gender: string;
   status: string;
   selectedCharacterDetails: RickAndMortyCharacter;
   filteredRickAndMortyCharacters: RickAndMortyCharacter[];
-  characterDetailEpisodes: Episode[];
+  selectedEpisodeDetails: Episode;
+  selectedCharacterEpisodes: Episode[];
   pending: boolean;
   error: boolean;
   currentPage: number;
+  info: Info;
 };
 
 export type UiSliceState = {
