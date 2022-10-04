@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+   background-color: #F1FAEE;
 }
 
 a {
@@ -15,12 +16,35 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: black;
-    background: white;
+:root {
+  --dark-color: #172a45;
+  --main-bg-color: #1D3557;
+  --secondary-bg-color: #457B9D;
+  --red-bg-color: #E63946;
+  --main-light-color: #F1FAEE;
+}
+
+.episode-tab {
+  color: var(--main-light-color);
+}
+.episode-tab:active,.episode-tab:focus-visible, .episode-tab:focus, .episode-tab:focus-within, .episode-tab:target {
+  color: var(--dark-color);
+  background-color: var(--main-light-color);
+}
+
+.logoImage {
+  width: auto;
+  height: 60px;
+  object-fit: contain;
+  object-position: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 768px) {
+  .logoImage {
+    height: 40px;
   }
 }
