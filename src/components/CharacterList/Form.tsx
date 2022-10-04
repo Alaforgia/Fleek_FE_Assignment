@@ -66,7 +66,7 @@ export default function Form() {
               <TextField
                 id="name"
                 type="search"
-                label="Name Search"
+                label="Name"
                 // helperText="Name"
                 variant="outlined"
                 {...field}
