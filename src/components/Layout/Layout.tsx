@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import React from "react";
 
 import ScrollToTopButton from "./ScrollToTopButton";
 
 import Box from "@mui/material/Box";
-import Containter from "@mui/material/Container";
+import Container from "@mui/material/Container";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 import SideBar from "./SideBar";
@@ -19,7 +20,7 @@ type LayoutProps = {
 const Layout = ({ children, isDetailPage = false }: LayoutProps) => {
   return (
     <>
-      <Containter maxWidth="lg">
+      <Container maxWidth="lg">
         <Navbar isDetailPage={isDetailPage} />
         <SideBar />
         <Box
@@ -29,7 +30,7 @@ const Layout = ({ children, isDetailPage = false }: LayoutProps) => {
           {children}
         </Box>
         <Footer />
-      </Containter>
+      </Container>
       <ScrollToTopButton>
         <Fab size="small" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
