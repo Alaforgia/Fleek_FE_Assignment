@@ -8,7 +8,7 @@ import Layout from "../../src/components/Layout/Layout";
 import Episodes from "../../src/components/CharacterDetails/Episodes";
 import CharacterDetailsGrid from "../../src/components/CharacterDetails/CharacterDetailsGrid";
 
-// Liberaries
+// Libraries
 import { z } from "zod";
 import Image from "mui-image";
 
