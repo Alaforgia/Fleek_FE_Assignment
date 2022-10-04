@@ -32,7 +32,7 @@ a {
 .episode-tab:focus,
 .episode-tab:focus-within,
 .episode-tab:target {
-  color: var(--dark-color);
+  /* color: var(--dark-color); */
   background-color: var(--main-light-color);
 }
 
