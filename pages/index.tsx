@@ -1,16 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import { useEffect } from "react";
 import Head from "next/head";
-import Layout from "../src/components/ui/Layout/Layout";
-import Form from "../src/components/ui/CharacterList/Form";
+import Layout from "../src/components/Layout/Layout";
 
 // Types
 import type { NextPage } from "next";
 
 // MUI Components
 import Box from "@mui/material/Box";
-import CharactersList from "../src/components/ui/CharacterList/CharactersList";
+import CharactersList from "../src/components/CharacterList/CharactersList";
 
 // Redux Hooks
 import { useAppSelector, useAppDispatch } from "../src/hooks/hooks";
@@ -19,7 +17,7 @@ import { useAppSelector, useAppDispatch } from "../src/hooks/hooks";
 import { store } from "../src/store/store";
 
 import {
-  getFilteredCharacterList,
+  getRickAndMortyCharacters,
   selectFilteredRickAndMortyCharacters,
   selectName,
 } from "../src/store/slices/rickAndMortySlice";
@@ -28,13 +26,15 @@ const Home: NextPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // if store is not null then dispatch getFilteredCharacterList
+    // if store is not null then dispatch getRickAndMortyCharacters
     if (store) {
-      dispatch(getFilteredCharacterList({}));
+      dispatch(getRickAndMortyCharacters({}));
     }
   }, []);
 
-  const rickAndMortyCharacters = useAppSelector(selectFilteredRickAndMortyCharacters);
+  const rickAndMortyCharacters = useAppSelector(
+    selectFilteredRickAndMortyCharacters
+  );
   const search = useAppSelector(selectName);
 
   return (
@@ -53,7 +53,6 @@ const Home: NextPage = () => {
           alignItems: "center",
         }}
       >
-        <Form />
         <CharactersList characters={rickAndMortyCharacters} />
       </Box>
     </Layout>
