@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
+import z from "zod";
 
 import { RickAndMortyState } from "../../types";
 
@@ -8,11 +9,7 @@ const initialState: RickAndMortyState = {
   filteredRickAndMortyCharacters: [],
   selectedCharacterDetails: {
     created: "",
-    episode: [
-      {
-        url: "",
-      },
-    ],
+    episode: [""],
     id: 0,
     image: "",
     gender: "",
@@ -22,34 +19,65 @@ const initialState: RickAndMortyState = {
     status: "",
     type: "",
   },
-  characterDetailEpisodes: [
-    {
-      id: 0,
-      name: "",
-      air_date: "",
-      episode: "",
-      characters: [""],
-      url: "",
-      created: "",
-    },
-  ],
+  selectedEpisodeDetails: {
+    id: 0,
+    name: "",
+    air_date: "",
+    episode: "",
+    created: "",
+  },
+  selectedCharacterEpisodes: [],
   name: "",
   gender: "",
   status: "",
   pending: false,
   error: false,
   currentPage: 1,
+  info: {
+    count: 0,
+    pages: 0,
+    next: "",
+    prev: "",
+  },
 };
 
-// TODO: Recheck this
-export const getRickAndMortyCharacterEpisodes = createAsyncThunk(
-  "rickAndMorty/getRickAndMortyCharacterEpisodes",
-  async (data: { name: string }) => {
-    const query = data.name;
-    console.log("getRickAndMortyCharacterDetails", query);
-    const response = await fetch(`https://rickandmortyapi.com/api/episode?characters=${query}`);
+export const populateSelectedCharacterEpisodes = (state: RootState) => {
+  const selectedCharacterEpisodeIds =
+    state.rickAndMortyCharacters.selectedCharacterDetails.episode.map((url) => {
+      // function that takes a string url and returns everything after the last slash
+
+      const splitUrl = url.split("/");
+
+      const episodeId = splitUrl[splitUrl.length - 1];
+
+      return {
+        id: episodeId,
+      };
+    });
+
+  selectedCharacterEpisodeIds.map(async (id) => {
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/episode/${id}`
+    );
+    const { data, errors } = await response.json();
+
+    if (response.ok) {
+      state.rickAndMortyCharacters.selectedCharacterEpisodes.push(data);
+    }
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
+  });
+};
+
+export const getSelectedEpisodeDetails = createAsyncThunk(
+  "rickAndMorty/getSelectedEpisodeDetails",
+  async (data: { episodeId: string }) => {
+    const query = data.episodeId;
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/episode/${query}`
+    );
     const dataResponse = await response.json();
-    console.log(dataResponse);
     return dataResponse;
   }
 );
@@ -58,10 +86,12 @@ export const getRickAndMortyCharacterDetails = createAsyncThunk(
   "rickAndMorty/getRickAndMortyCharacterDetails",
   async (data: { id: string }) => {
     const query = data.id;
-    console.log("getRickAndMortyCharacterDetails", query);
-    const response = await fetch(`https://rickandmortyapi.com/api/character/${query}`);
+
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/${query}`
+    );
     const dataResponse = await response.json();
-    console.log(dataResponse);
+
     return dataResponse;
   }
 );
@@ -69,9 +99,14 @@ export const getRickAndMortyCharacterDetails = createAsyncThunk(
 /**
  * @description This is the main slice that handles all the data fetching and filtering
  */
-export const getFilteredCharacterList = createAsyncThunk(
-  "rickAndMorty/getFilteredCharacterList",
-  async (data: { name?: string; gender?: string; status?: string; page?: string }) => {
+export const getRickAndMortyCharacters = createAsyncThunk(
+  "rickAndMorty/getRickAndMortyCharacters",
+  async (data: {
+    name?: string;
+    gender?: string;
+    status?: string;
+    page?: string;
+  }) => {
     let query = "";
     if (data.name) {
       query += `?name=${data.name}`;
@@ -94,10 +129,16 @@ export const getFilteredCharacterList = createAsyncThunk(
       }
     }
     if (data.page) {
-      query += `&page=${data.page}`;
+      if (query === "") {
+        query += `?page=${data.page}`;
+      } else {
+        query += `&page=${data.page}`;
+      }
     }
 
-    const response = await fetch(`https://rickandmortyapi.com/api/character/${query}`);
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/${query}`
+    );
     return await response.json();
   }
 );
@@ -119,54 +160,78 @@ export const rickAndMortySlice = createSlice({
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
+    setSelectedEpisodeId(state, action: PayloadAction<{ id: number }>) {
+      state.selectedEpisodeDetails.id = action.payload.id;
+      // getSelectedEpisodeDetails({
+      //   episodeId: state.selectedEpisodeDetails.id.toString(),
+      // });
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getFilteredCharacterList.pending, (state) => {
+      .addCase(getRickAndMortyCharacters.pending, (state) => {
         state.pending = true;
       })
-      .addCase(getFilteredCharacterList.fulfilled, (state, { payload }) => {
+      .addCase(getRickAndMortyCharacters.fulfilled, (state, { payload }) => {
         state.pending = false;
         state.rickAndMortyCharacters = payload.results;
+        state.info = payload.info;
         state.filteredRickAndMortyCharacters = payload.results;
       })
-      .addCase(getFilteredCharacterList.rejected, (state) => {
+      .addCase(getRickAndMortyCharacters.rejected, (state) => {
         state.pending = false;
         state.error = true;
       })
       .addCase(getRickAndMortyCharacterDetails.pending, (state) => {
         state.pending = true;
       })
-      .addCase(getRickAndMortyCharacterDetails.fulfilled, (state, { payload }) => {
-        console.log("getRickAndMortyCharacterDetails.fulfilled", payload);
-        state.pending = false;
-        state.selectedCharacterDetails = payload;
-      })
+      .addCase(
+        getRickAndMortyCharacterDetails.fulfilled,
+        (state, { payload }) => {
+          state.pending = false;
+          state.selectedCharacterDetails = payload;
+        }
+      )
       .addCase(getRickAndMortyCharacterDetails.rejected, (state) => {
         state.pending = false;
         state.error = true;
       })
-      .addCase(getRickAndMortyCharacterEpisodes.pending, (state) => {
+      .addCase(getSelectedEpisodeDetails.pending, (state) => {
         state.pending = true;
       })
-      .addCase(getRickAndMortyCharacterEpisodes.fulfilled, (state, { payload }) => {
-        console.log("getRickAndMortyCharacterEpisodes.fulfilled", payload.results);
+      .addCase(getSelectedEpisodeDetails.fulfilled, (state, { payload }) => {
         state.pending = false;
-        state.characterDetailEpisodes = payload.results;
+        state.selectedEpisodeDetails = payload;
       })
-      .addCase(getRickAndMortyCharacterEpisodes.rejected, (state) => {
+      .addCase(getSelectedEpisodeDetails.rejected, (state) => {
         state.pending = false;
         state.error = true;
       });
   },
 });
 
-export const { setName, setGender, setStatus, setCurrentPage } = rickAndMortySlice.actions;
+export const {
+  setName,
+  setGender,
+  setStatus,
+  setCurrentPage,
+  setSelectedEpisodeId,
+} = rickAndMortySlice.actions;
 
-export const selectName = (state: RootState) => state.rickAndMortyCharacters.name;
+export const selectName = (state: RootState) =>
+  state.rickAndMortyCharacters.name;
+export const selectGender = (state: RootState) =>
+  state.rickAndMortyCharacters.gender;
+export const selectStatus = (state: RootState) =>
+  state.rickAndMortyCharacters.status;
 export const selectFilteredRickAndMortyCharacters = (state: RootState) =>
   state.rickAndMortyCharacters.filteredRickAndMortyCharacters;
-export const selectedCharacterDetails = (state: RootState) => state.rickAndMortyCharacters.selectedCharacterDetails;
-export const selectedCharacterEpisodes = (state: RootState) => state.rickAndMortyCharacters.characterDetailEpisodes;
+export const selectedCharacterDetails = (state: RootState) =>
+  state.rickAndMortyCharacters.selectedCharacterDetails;
+export const selectedEpisodeDetails = (state: RootState) =>
+  state.rickAndMortyCharacters.selectedEpisodeDetails;
+export const info = (state: RootState) => state.rickAndMortyCharacters.info;
+export const currentPage = (state: RootState) =>
+  state.rickAndMortyCharacters.currentPage;
 
 export default rickAndMortySlice.reducer;
