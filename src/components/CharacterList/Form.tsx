@@ -15,12 +15,7 @@ import { useAppDispatch } from "../../hooks/hooks";
 import Box from "@mui/material/Box";
 
 // Redux Actions
-import {
-  getRickAndMortyCharacters,
-  setName,
-  setGender,
-  setStatus,
-} from "../../store/slices/rickAndMortySlice";
+import { getRickAndMortyCharacters, setName, setGender, setStatus } from "../../store/slices/rickAndMortySlice";
 
 type Inputs = {
   example: string;
@@ -70,7 +65,9 @@ export default function Form() {
             render={({ field }) => (
               <TextField
                 id="name"
-                label="Name"
+                type="search"
+                label="Name Search"
+                // helperText="Name"
                 variant="outlined"
                 {...field}
                 sx={{ marginBottom: "1rem", width: "100%" }}
@@ -123,11 +120,7 @@ export default function Form() {
           />
         </FormControl>
         <FormControl sx={{ display: "block" }}>
-          <Button
-            variant="contained"
-            type="submit"
-            sx={{ pt: "1rem", pb: "1rem", width: "100%" }}
-          >
+          <Button variant="contained" type="submit" sx={{ pt: "1rem", pb: "1rem", width: "100%" }}>
             Submit
           </Button>
         </FormControl>

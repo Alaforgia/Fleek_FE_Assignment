@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import React from "react";
 // MUI Components
@@ -20,15 +21,10 @@ import {
 const Episodes: React.FC = () => {
   const [value, setValue] = useState(0);
   const dispatch = useAppDispatch();
-  const handleChange = (
-    event: React.SyntheticEvent,
-    currentEpisodeId: number
-  ) => {
+  const handleChange = (event: React.SyntheticEvent, currentEpisodeId: number) => {
     setValue(currentEpisodeId);
     dispatch(setSelectedEpisodeId({ id: currentEpisodeId }));
-    dispatch(
-      getSelectedEpisodeDetails({ episodeId: currentEpisodeId.toString() })
-    );
+    dispatch(getSelectedEpisodeDetails({ episodeId: currentEpisodeId.toString() }));
   };
   const characterDetails = useAppSelector(selectedCharacterDetails);
   const episodeDetails = useAppSelector(selectedEpisodeDetails);
@@ -89,6 +85,7 @@ const Episodes: React.FC = () => {
           flexDirection: "column",
           justifyContent: "start",
           alignItems: "start",
+          ml: 12,
         }}
       >
         <Stack spacing={2}>

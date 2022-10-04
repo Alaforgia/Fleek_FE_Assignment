@@ -41,7 +41,7 @@ const Navbar: React.FC<{ isDetailPage: boolean }> = ({ isDetailPage }) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleMenuClick}
-            sx={{ mr: 2 }}
+            sx={{ mr: 4, ml: 15 }}
           >
             <MenuIcon />
           </IconButton>
@@ -51,7 +51,7 @@ const Navbar: React.FC<{ isDetailPage: boolean }> = ({ isDetailPage }) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleBackButtonClick}
-            sx={{ mr: 2 }}
+            sx={{ mr: 4, ml: 15 }}
           >
             <ArrowBackIcon color="inherit" />
           </IconButton>
