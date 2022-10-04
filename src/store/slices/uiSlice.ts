@@ -12,7 +12,6 @@ export const uiSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    // is state implied here without having to declare it because of toolkit?
     setIsSidebarOpen(state, action: PayloadAction<boolean>) {
       state.isSidebarOpen = action.payload;
     },
