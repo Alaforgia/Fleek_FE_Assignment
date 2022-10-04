@@ -1,13 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Layout from "../../src/components/ui/Layout/Layout";
-import Episodes from "../../src/components/ui/CharacterDetails/Episodes";
-import CharacterDetailsGrid from "../../src/components/ui/CharacterDetails/CharacterDetailsGrid";
+import Layout from "../../src/components/Layout/Layout";
+import Episodes from "../../src/components/CharacterDetails/Episodes";
+import CharacterDetailsGrid from "../../src/components/CharacterDetails/CharacterDetailsGrid";
 
-// Libraries
+// Liberaries
 import { z } from "zod";
 import Image from "mui-image";
 
@@ -16,10 +15,14 @@ import type { NextPage } from "next";
 
 // Mui Components
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 // Redux
-import { getRickAndMortyCharacterDetails, selectedCharacterDetails } from "../../src/store/slices/rickAndMortySlice";
+import {
+  getRickAndMortyCharacterDetails,
+  selectedCharacterDetails,
+  populateSelectedCharacterEpisodes,
+} from "../../src/store/slices/rickAndMortySlice";
 
 // Redux hooks
 import { useAppSelector, useAppDispatch } from "../../src/hooks/hooks";
@@ -37,11 +40,8 @@ const CharacterDetailPage: NextPage = () => {
 
   useEffect(() => {
     if (idValidationValue.success && characterDetails.id === 0) {
-      console.log("inside id check: ", idValidationValue.data);
       dispatch(getRickAndMortyCharacterDetails({ id: idValidationValue.data }));
     }
-    console.log("characterDetails: ", characterDetails);
-    console.log("episodes: ", characterDetails.episode);
   }, [idValidationValue, characterDetails]);
 
   return (
@@ -49,21 +49,53 @@ const CharacterDetailPage: NextPage = () => {
       <Container maxWidth="lg">
         <Head>
           <title>{`${characterDetails?.name} Details`}</title>
-          <meta name="description" content={`Character and episode details about ${characterDetails}`} />
+          <meta
+            name="description"
+            content={`Character and episode details about ${characterDetails}`}
+          />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Box
+        {/* <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {Array.from(Array(6)).map((_, index) => (
+            <Grid item xs={2} sm={4} md={4} key={index}>
+              <Item>xs=2</Item>
+            </Grid>
+          ))}
+        </Grid> */}
+        <Grid
+          container
+          spacing={{ xs: 2, md: "3rem" }}
+          columns={12}
           sx={{
             my: 4,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
           }}
         >
-          {characterDetails?.image && <Image src={characterDetails?.image} alt={characterDetails?.name} showLoading />}
-          <CharacterDetailsGrid />
-        </Box>
+          <Grid item xs={12} sm={12} md={6}>
+            {characterDetails?.image && (
+              <Image
+                src={characterDetails?.image}
+                alt={characterDetails?.name}
+                showLoading
+              />
+            )}
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <CharacterDetailsGrid />
+          </Grid>
+        </Grid>
         <Episodes />
       </Container>
     </Layout>
