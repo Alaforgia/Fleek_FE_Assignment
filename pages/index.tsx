@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import React from "react";
 import { useEffect } from "react";
 import Head from "next/head";
 import Layout from "../src/components/Layout/Layout";
@@ -21,6 +22,7 @@ import {
   selectFilteredRickAndMortyCharacters,
   selectName,
 } from "../src/store/slices/rickAndMortySlice";
+
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();

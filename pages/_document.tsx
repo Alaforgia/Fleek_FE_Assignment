@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import React from "react";
 import theme from "../src/theme";
 
 export default function Document() {
