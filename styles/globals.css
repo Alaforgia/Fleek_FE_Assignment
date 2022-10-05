@@ -18,7 +18,8 @@ a {
 
 :root {
   --dark-color: #172a45;
-  --main-bg-color: #1d3557;
+  --main-bg-color: #f1faee;
+  /* --main-bg-color: #1d3557; */
   --secondary-bg-color: #f1faee;
   /* --secondary-bg-color: #457b9d; */
   --red-bg-color: #e63946;
@@ -34,7 +35,8 @@ a {
 .episode-tab:focus-within,
 .episode-tab:target {
   /* color: var(--dark-color); */
-  background-color: var(--main-light-color);
+
+  background-color: #f1faee;
 }
 
 .logoImage {
