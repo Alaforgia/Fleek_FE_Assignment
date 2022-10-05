@@ -19,7 +19,8 @@ a {
 :root {
   --dark-color: #172a45;
   --main-bg-color: #1d3557;
-  --secondary-bg-color: #457b9d;
+  --secondary-bg-color: #f1faee;
+  /* --secondary-bg-color: #457b9d; */
   --red-bg-color: #e63946;
   --main-light-color: #f1faee;
 }
@@ -52,4 +53,3 @@ a {
     height: 40px;
   }
 }
-
