@@ -42,6 +42,14 @@ a {
   color: #457b9d;
 }
 
+.MuiTab-textColorPrimary {
+  color: white;
+}
+
+.MuiTab-textColorSecondary {
+  color: white;
+}
+
 .logoImage {
   width: auto;
   height: 60px;

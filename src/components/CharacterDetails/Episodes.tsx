@@ -49,6 +49,7 @@ const Episodes: React.FC = () => {
       className="episodes"
       sx={{
         marginBottom: "100px",
+        textColor: "secondary"
       }}
     >
       <Tabs
@@ -73,7 +74,7 @@ const Episodes: React.FC = () => {
                 key={index}
                 value={episodeId}
                 sx={{
-                  color: "secondary",
+                  color: "white",
                   // backgroundColor: "white",
                   backgroundColor: "primary.main",
                   textColor: "secondary",
