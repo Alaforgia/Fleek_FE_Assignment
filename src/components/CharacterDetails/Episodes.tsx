@@ -55,8 +55,9 @@ const Episodes: React.FC = () => {
         value={value}
         onChange={handleChange}
         variant="scrollable"
-        // indicatorColor="secondary"
-        // textColor="secondary"
+        indicatorColor="secondary"
+        // textColor= "primary"
+        textColor="secondary"
         scrollButtons="auto"
         aria-label="scrollable auto tabs example"
       >
@@ -72,10 +73,10 @@ const Episodes: React.FC = () => {
                 key={index}
                 value={episodeId}
                 sx={{
-                  color: "black",
+                  color: "secondary",
                   // backgroundColor: "white",
                   backgroundColor: "primary.main",
-                  textColor: "black",
+                  textColor: "secondary",
                   // textColor: "secondary.main",
                 }}
               />
