@@ -17,7 +17,8 @@ a {
 }
 
 :root {
-  --dark-color: #172a45;
+  --dark-color: #457b9d;
+  /* --dark-color: #172a45; */
   --main-bg-color: #f1faee;
   /* --main-bg-color: #1d3557; */
   --secondary-bg-color: #f1faee;
